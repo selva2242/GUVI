@@ -1,0 +1,21 @@
+<html>
+    <head>
+    </head>
+    <body>  
+        <script>
+            // filter will take method as argument
+        // creates a array based on condition mentioned in a method
+            var items = [
+                {name:"selva", age:21},
+                {name: "raj", age:34},
+                {name: "ravi", age:45},
+                {name: "mani", age:90},
+                {name: "sasi", age:150},
+            ]
+            const filteredItems = items.filter((item)=>{
+                return item.age<50
+            })
+            console.log(filteredItems)
+        </script>
+    </body>
+</html>
