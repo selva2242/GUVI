@@ -1,0 +1,79 @@
+<html>
+    <body>
+
+        <div style="width: 100%; height: 55%; background-image:url(Images/MIvsCSK.jpg); background-size:cover; float:left;">
+             <center>
+                 <button type="button" id="start" onclick="startMatch( 'strikeMI', 'start')">start</button>
+             </center>
+        </div>
+
+        <div style="width: 50%; height: 35%; float:left; background-color: wheat;">
+            <form>
+                <br>
+                Mumbai Indians:
+                <input type="text" name="totalRuns" value="0" id="totalRunsMI" size="5"><br>
+                Wickets:
+                <input type="text" name="wickets" value= "0" id="wicketsMI" size="4">
+                Retired Hurts:
+                <input type="text" name="wickets" value= "0" id="retiredHurtMI" size="4"><br>
+                This Ball:
+                <input type="text" name="currentDeliveryRun" value="0" id="currentDeliveryRunMI" size="3">
+                This Over:
+                <input type="text" name="currentOverRun" value="0" id="currentOverRunMI" size="6">
+                Overs:
+                <input type="text" name="overs" value="0.0" id="oversMI" size="3"><br>
+                Batsmen:
+                <input type="text" name="currentPlayer" value="-"id="currentPlayerMI">          
+                Run:
+                <input type="text" name="currentPlayerRun" value="0" id="currentPlayerRunMI" size="3">
+                Balls:
+                <input type="text" name="currentPlayerPlayedBalls" value="0" id="currentPlayerPlayedBallsMI" size="3"><br>
+                Commentary:
+                <input type="text" name="commentary" value="Innings will start in a while" id="commentaryMI" size="30"><br>
+                <br>
+                <center>
+                <button type="button" id="strikeMI" onclick="updateScoreBoard('MI', 'totalRunsMI', 'wicketsMI', 'retiredHurtMI', 'currentDeliveryRunMI', 'commentaryMI', 'currentPlayerMI', 'currentPlayerRunMI', 'currentPlayerPlayedBallsMI', 'oversMI', 'currentOverRunMI', 'strikeMI' )" disabled>Strike</button>
+                </center>
+            </form>
+        </div>
+        <div style="width: 50%; height: 35%; float:right; background-color: wheat;">
+            <form>
+                <br>
+                Chennai Super Kings:
+                <input type="text" name="totalRuns" value="0" id="totalRunsCSK" size="5"><br>
+                Wickets:
+                <input type="text" name="wickets" value= "0" id="wicketsCSK" size="4">
+                Retired Hurts:
+                <input type="text" name="wickets" value= "0" id="retiredHurtCSK" size="4"><br>
+                This Ball:
+                <input type="text" name="currentDeliveryRun" value="0" id="currentDeliveryRunCSK" size="3">
+                This Over:
+                <input type="text" name="currentOverRun" value="0" id="currentOverRunCSK" size="6">
+                Overs:
+                <input type="text" name="overs" value="0.0" id="oversCSK" size="3"><br>
+                Batsmen:
+                <input type="text" name="currentPlayer" value="-"id="currentPlayerCSK">          
+                Run:
+                <input type="text" name="currentPlayerRun" value="0" id="currentPlayerRunCSK" size="3">
+                Balls:
+                <input type="text" name="currentPlayerPlayedBalls" value="0" id="currentPlayerPlayedBallsCSK" size="3"><br>
+                Commentary:
+                <input type="text" name="commentary" value="Innings will start in a while" id="commentaryCSK" size="30"><br>
+                <br>
+                <center>
+                <button type="button" id="strikeCSK" onclick="updateScoreBoard('CSK', 'totalRunsCSK', 'wicketsCSK', 'retiredHurtCSK', 'currentDeliveryRunCSK', 'commentaryCSK', 'currentPlayerCSK', 'currentPlayerRunCSK', 'currentPlayerPlayedBallsCSK', 'oversCSK', 'currentOverRunCSK', 'strikeCSK' )" disabled>Strike</button>
+                </center>
+            </form>
+        </div>
+        <div style=" width: 100%; height: 10%; clear:both; text-align:center; background-color:rgb(7, 4, 2)">
+            <br>
+            <a href="scorecard_cricket_multiplayer.html">
+                <button type="button" id="scoreCard" disabled>Scorecard Display</button>
+            </a>
+        </div>
+        
+        <script src="cricket_multiPlayer_OOP1.js">
+            
+        </script>
+    </body>
+</html>

@@ -1,0 +1,118 @@
+<html>
+    <body>  
+      <div style="width: 100%; height: 5%; background-color:rgb(223, 151, 19);" id="result">
+      </div>
+      <div style="width:50%; height:10%; float:left; background-color: black;">
+        <center><h2><font color="white">MUMBAI INDIANS</font></h2></center>
+      </div>
+      <div style="width:50%; height:10%; float:right; background-color: black;">
+        <center><h2><font color="white">CHENNAI SUPER KINGS</font></h2></center>
+      </div>
+      <div style="width:30%; height:85%; float:left; background-color:wheat;" id="batsmensMI">
+      </div>
+      <div style="width:10%; height:85%; float:left; background-color:wheat;" id="runsMI">
+      </div>
+      <div style="width:10%; height:85%; float:left; background-color:wheat" id="ballsMI">
+      </div>
+      <div style="width:10%; height:85%; float:right; background-color:wheat;" id="ballsCSK">
+      </div>
+      <div style="width:10%; height:85%; float:right; background-color: wheat" id="runsCSK">
+      </div>
+      <div style="width:30%; height:85%; float:right; background-color:wheat;" id="batsmensCSK">
+      </div>
+      
+      <script>
+         
+          function updateScoreBoard(teamName, batsmensBoard, runBoard, ballBoard, totalRunsID){
+            var playedBalls = 0
+            var scoredRuns = 0
+            var Batsman
+            document.getElementById(batsmensBoard).innerHTML += "<br> <br> <b>PLAYER<b>"
+            document.getElementById(runBoard).innerHTML +="<br> <br> <b>RUNS <b>"
+            document.getElementById(ballBoard).innerHTML +="<br> <br> <b>BALLS <b>"
+            var Batsmens = JSON.parse(localStorage.getItem(teamName))
+            console.log(Batsmens)
+            for(var key in Batsmens){
+              var playedBalls = 0
+              var scoredRuns = 0
+              playedBalls = Batsmens[key].playerRuns.length
+              console.log(playedBalls)
+              Batsman = Batsmens[key].name
+              console.log(Batsman)
+              if(Batsmens[key].playerRuns.length>=1){
+                console.log("coming")
+                  scoredRuns = Batsmens[key].playerRuns.reduce((sum,num)=>{
+                  return sum+num
+              })
+            }
+              document.getElementById(batsmensBoard).innerHTML += "<br> <br>"+Batsman
+              document.getElementById(runBoard).innerHTML +="<br> <br>"+scoredRuns                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                
+              document.getElementById(ballBoard).innerHTML +="<br> <br>"+playedBalls
+          }
+            totalRuns = JSON.parse(localStorage.getItem(totalRunsID))
+            document.getElementById(batsmensBoard).innerHTML +="<br> <br><b>TOTAL RUNS<b>"
+            document.getElementById(runBoard).innerHTML +="<br> <br><b>"+totalRuns+"</b>"
+
+          }
+
+          var playerRunsMax = 0
+          var manOfTheMatch = ""
+          var matchResult  
+
+          function findManOfTheMatch(teamID){
+            var Batsmens = JSON.parse(localStorage.getItem(teamID))
+            for(var key in Batsmens){
+              if(Batsmens[key].playerRuns.length>=1){
+                  Runs = Batsmens[key].playerRuns.reduce((sum,num)=>{
+                  return sum+num
+              })
+              if(Runs>playerRunsMax){
+                  playerRunsMax = Runs
+                  manOfTheMatch = Batsmens[key].name
+              }
+            }
+          }
+          return [manOfTheMatch, playerRunsMax]
+          }
+          updateScoreBoard("MI","batsmensMI", "runsMI", "ballsMI", "totalRunsMI")
+          updateScoreBoard("CSK", "batsmensCSK", "runsCSK", "ballsCSK", "totalRunsCSK")
+          runsMI = JSON.parse(localStorage.getItem('totalRunsMI'))
+          runsCSK = JSON.parse(localStorage.getItem('totalRunsCSK'))
+          
+          if(runsMI>runsCSK){
+             values = findManOfTheMatch("MI")
+             manOfTheMatch = values[0]
+             manOfTheMatchRuns = values[1]
+             matchResult = "  MI Won the match"
+          }
+          else if(runsMI<runsCSK)
+          {
+            values = findManOfTheMatch("CSK")
+            manOfTheMatch = values[0]
+            manOfTheMatchRuns = values[1]
+            matchResult = "CSK won the match"
+          }
+          else{
+            values1 = findManOfTheMatch("MI")
+            manOfTheMatch1 = values1[0]
+            manOfTheMatchRuns1 = values1[1]
+            values2 = findManOfTheMatch("CSK")
+            manOfTheMatch2 = values2[0]
+            manOfTheMatchRuns2 = values2[1]
+            matchResult = "Match has Drawn"
+            if(manOfTheMatchRuns2>manOfTheMatchRuns2){
+              manOfTheMatch = manOfTheMatch2
+              manOfTheMatchRuns = manOfTheMatchRuns2
+            }
+            else
+            {
+              manOfTheMatch = manOfTheMatch1
+              manOfTheMatchRuns = manOfTheMatchRuns1
+            }
+          }
+          Result = "<h2>"+matchResult+" & Man OF THE MATCH is  "+manOfTheMatch+"(Contribution ="+manOfTheMatchRuns+" Runs)</h2>"
+          document.getElementById("result").innerHTML = Result
+
+        </script>
+    </body>
+</html>
