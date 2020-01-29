@@ -1,0 +1,54 @@
+<html>
+    <head>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    </head>
+    <body>
+        <script>
+            url = "https://restcountries.eu/rest/v2/name/"
+            country = document.createTextNode('country: ')
+            textbox = document.createElement('input')
+            textbox.id = "val"
+            id = textbox.id
+            document.body.appendChild(country)
+            document.body.appendChild(textbox)
+            card = document.createElement('div')
+            card.id = "card"
+            document.body.appendChild(card)
+            textbox.onkeyup = function(){
+                newurl = url + document.getElementById("val").value
+                fetch(newurl).then((returnedPromise)=>{
+                    return returnedPromise.json()
+                }).then((data)=>{
+                    createCard(data, "card")
+                }).catch(()=>{
+                    console.log("No matched countries")
+                })
+            }
+            function createCard(data, id){
+                document.getElementById(id).innerHTML=""
+                console.log(data)
+                
+                data.forEach(element => {
+                    cardDiv = document.createElement('div')
+                    cardDiv.setAttribute('class', 'card')
+                    cardDiv.style.width = "18rem"
+                    cardDiv.style.margin = "30px"
+                    image = document.createElement('img')
+                    image.src = element.flag
+                    image.setAttribute('class', 'card-img-top')
+                    cardBody = document.createElement('div')
+                    h1 = document.createElement('header')
+                    h1.setAttribute('class', 'card-title')
+                    h1.innerHTML = element.name
+                    cardDiv.appendChild(image)
+                    cardBody.appendChild(h1)
+                    cardDiv.appendChild(cardBody)
+                    document.getElementById(id).appendChild(cardDiv)
+                });
+            }
+            </script>
+            <script src="https://code.jquery.com/jquery-3.4.1.slim.min.js" integrity="sha384-J6qa4849blE2+poT4WnyKhv5vZF5SrPo0iEjwBvKU7imGFAV0wwj1yYfoRSJoZ+n" crossorigin="anonymous"></script>
+            <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+            <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+    </body>
+</html>
