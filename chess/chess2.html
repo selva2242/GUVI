@@ -1,0 +1,332 @@
+<html>
+<body>
+    <script>
+        let chessBoardSize = 8
+        //creating grid
+        function createBox(id, color){
+ 	        let div = document.createElement('div');
+	        div.id = id
+	        div.style.backgroundColor = color
+	        div.style.width = '70px'
+	        div.style.height = '70px'
+	        div.style.display = 'inline-block'
+            div.style.verticalAlign='top';
+            div.style.border = '1px solid black'
+            div.setAttribute('onclick',"generatePath('"+div.id+"')")
+            document.body.appendChild(div)	
+        }
+        
+        //8*8 grid generation call
+        function createchessboard(size) 
+        {
+            for (var i = 0; i <size; i++) {
+                for (var j = 0; j < size; j++) {
+                    if ((i + j) % 2 == 0 ) {
+	                    createBox(i.toString()+j, 'white')
+                    } 
+                    else {
+                           createBox(i.toString()+j, 'yellow')
+                    }
+                }
+	
+                let br = document.createElement('br')
+                document.body.appendChild(br)
+            }
+        }  
+
+        //placing element in  grid
+        function placeElement(row, column, val)
+        {
+             var x=(row.toString()+column)
+             document.getElementById(x).innerHTML=val;
+             document.getElementById(x).value = val
+        }
+      
+        //generating all possible path
+        function generatePath(id)
+        {   
+            if((document.getElementById(id).value!="")){
+                let value = document.getElementById(id).value
+                let row = parseInt(id.split("")[0])
+                let column = parseInt(id.split("")[1])
+                if(value=="queen"){
+                    checkvertical(row, column)
+                    checkHorizontal(row, column)
+                    checkFrontDiagonal(row, column)
+                    checkBackDiagonal(row, column)
+                }
+                else if(value=="horse"){
+                   checkHorsePath(row, column)
+                } 
+            }
+        }
+
+        //generate vertical path
+        function checkvertical(row, column){
+          for(let i=row+1;i<chessBoardSize;i++){
+                id = i.toString()+column
+                if(document.getElementById(id).innerHTML==""){
+                    document.getElementById(id).style.backgroundColor = 'orange'
+                }
+                else{
+                    break;
+                }
+          }
+          for(let j=row-1;j>=0;j--){
+                id = j.toString()+column
+                if(document.getElementById(id).innerHTML==""){
+                    document.getElementById(id).style.backgroundColor = 'orange'
+                }
+                else{
+                    break;
+                }
+          }
+        }
+
+        //generate horizontal path
+        function checkHorizontal(row, column){
+            for(let i=column+1;i<chessBoardSize;i++){
+                id = row.toString()+i
+                if(document.getElementById(id).innerHTML==""){
+                    document.getElementById(id).style.backgroundColor = 'orange'
+                }
+                else{
+                    break;
+                }
+            }
+            for(let j=column-1;j>=0;j--){
+                id = row.toString()+j
+                if(document.getElementById(id).innerHTML==""){
+                    document.getElementById(id).style.backgroundColor = 'orange'
+                }
+                else{
+                    break;
+                }
+            }
+        }
+
+        //generate front diagonal path
+        function checkFrontDiagonal(row, column){
+            let i=row-1
+            let j= column-1
+            while(i>=0 && j>=0){
+                id = i.toString()+j
+                if(document.getElementById(id).innerHTML==""){
+                    document.getElementById(id).style.backgroundColor = 'orange'
+                }
+                else{
+                    break;
+                }
+                i--
+                j--
+            }
+            i = row+1
+            j = column+1
+            while(i<chessBoardSize && j<chessBoardSize){
+                id = i.toString()+j
+                if(document.getElementById(id).innerHTML==""){
+                    document.getElementById(id).style.backgroundColor = 'orange'
+                }
+                else{
+                    break;
+                }
+                i++
+                j++
+            }
+        }
+
+        //generate back diagonal path
+        function checkBackDiagonal(row, column){
+            i = row-1
+            j = column+1
+            while(i>=0 && j<chessBoardSize){
+                id = i.toString()+j
+                if(document.getElementById(id).innerHTML==""){
+                    document.getElementById(id).style.backgroundColor = 'orange'
+                }
+                else{
+                    break;
+                }
+                i--
+                j++
+            }
+            i = row+1
+            j = column-1
+            while(i<chessBoardSize && j>=0){
+                id = i.toString()+j
+                if(document.getElementById(id).innerHTML==""){
+                    document.getElementById(id).style.backgroundColor = 'orange'
+                }
+                else{
+                    break;
+                }
+                i++
+                j--
+            }
+        }
+
+        function checkHorsePath(row, column){
+            // long upper right
+            let i = row-2
+            let j = column-1
+            if(i>=0 && j>=0){
+                id = i.toString()+j
+                if(document.getElementById(id).innerHTML==""){
+                  /*  let k = row-1
+                    let l = column
+                    while(k>=row-2){
+                        id1 = k.toString()+l
+                        document.getElementById(id1).style.backgroundColor = 'orange'
+                        k--
+                    } */
+                    document.getElementById(id).style.backgroundColor = 'orange'
+                    
+                }
+            }
+
+            // long upper left 
+            i = row-2
+            j = column+1
+            if(i>=0 && j<chessBoardSize){
+                id = i.toString()+j
+                if(document.getElementById(id).innerHTML==""){
+                 /*   let k = row-1
+                    let l = column
+                    while(k>=row-2){
+                        id1 = k.toString()+l
+                        document.getElementById(id1).style.backgroundColor = 'orange'
+                        k--
+                    } */
+                    document.getElementById(id).style.backgroundColor = 'orange'
+                    
+                }
+            }
+
+            //long lower right 
+            i = row+2
+            j = column-1
+            if(i<chessBoardSize && column>=0){
+                id = i.toString()+j
+                if(document.getElementById(id).innerHTML==""){
+                 /*   k = row+1
+                    l = column
+                    while(k<=row+2){
+                        id1 = k.toString()+l
+                        document.getElementById(id1).style.backgroundColor = 'orange'
+                        k++
+                    } */
+                    document.getElementById(id).style.backgroundColor = 'orange'
+                    
+                }
+
+            }
+
+
+            //long lower left 
+            i = row+2
+            j = column+1
+            if(i<chessBoardSize && j>=0){
+                id = i.toString()+j
+                if(document.getElementById(id).innerHTML==""){
+                 /*   k = row+1
+                    l = column
+                    while(k<=row+2){
+                        id1 = k.toString()+l
+                        document.getElementById(id1).style.backgroundColor = 'orange'
+                        k++
+                    } */
+                    document.getElementById(id).style.backgroundColor = 'orange'
+                    
+                }
+
+            }
+
+            //short upper right
+            i = row-1
+            j = column-2
+            if(i>=0 && j>=0){
+                id = i.toString()+j
+                if(document.getElementById(id).innerHTML==""){
+                  /* let k = row-1
+                    let l = column
+                    while(l>=j){
+                        id1 = k.toString()+l
+                        document.getElementById(id1).style.backgroundColor = 'orange'
+                        l--
+                    } */
+                    document.getElementById(id).style.backgroundColor = 'orange'          
+                }
+            }
+
+            //short upper left
+            i = row-1
+            j = column+2
+            if(i>=0 && j<chessBoardSize){
+                id = i.toString()+j
+                if(document.getElementById(id).innerHTML==""){
+                  /*  let k = row-1
+                    let l = column
+                    while(l<=j){
+                        id1 = k.toString()+l
+                        document.getElementById(id1).style.backgroundColor = 'orange'
+                        l++
+                    } */
+                    document.getElementById(id).style.backgroundColor = 'orange'          
+                }
+            }
+
+            //short lower right
+            i = row+1
+            j = column-2
+            if(i<chessBoardSize && j>=0){
+                id = i.toString()+j
+                if(document.getElementById(id).innerHTML==""){
+                  /*  let k = row+1
+                    let l = column
+                    while(l>=j){
+                        id1 = k.toString()+l
+                        document.getElementById(id1).style.backgroundColor = 'orange'
+                        l--
+                    } */
+                    document.getElementById(id).style.backgroundColor = 'orange'
+
+                }
+            }
+
+            //short lower left
+            i = row+1
+            j = column+2
+            if(i<chessBoardSize && j<chessBoardSize){
+                id = i.toString()+j
+                if(document.getElementById(id).innerHTML==""){
+                   /* let k = row+1
+                    let l = column
+                    while(l<=j){
+                        id1 = k.toString()+l
+                        console.log(id1)
+                        document.getElementById(id1).style.backgroundColor = 'orange'
+                        l++
+                    } */
+                    document.getElementById(id).style.backgroundColor = 'orange'
+
+                }
+            }
+            
+            
+            
+        }
+
+        createchessboard(chessBoardSize);
+        placeElement(0, 4, "queen");
+        placeElement(2, 6, "horse");
+        placeElement(2, 0, "queen");
+        placeElement(6, 7, "horse");
+        placeElement(4,4, "horse");
+        placeElement(4, 2, "queen");
+        placeElement(1, 5, "horse");
+        placeElement(2,5, "Bishop")
+        placeElement(1,1, "Rook")
+
+    </script>
+</body>
+</html>
